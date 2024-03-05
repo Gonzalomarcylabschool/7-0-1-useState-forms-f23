@@ -20,22 +20,22 @@ In this lesson, we will look at how to respond to events in React and use those 
 
 ## Terms
 
-- **State** — Data that is used/rendered by a component at a particular point in time. State is often mutable, meaning it can be changed over time, usually in response to user actions or other events
+- **State** — Data that is used by an application at a particular point in time. State is often mutable, meaning it can be changed over time, usually in response to user actions or other events
 - **Stateful Component** — A component that depends on state and is re-rendered whenever the state changes.
-- **Hooks** — Functions that provide a wide variety of features for React components. They all begin with `use()`
-- **`useState`** – A react hook for managing state within a React component. It returns an array with a state value and a setter function.
-- **Lifting state up** — A practice where state that needs to be used by multiple components is "lifted" to the closest shared ancestor component.
+- **Hooks** — Functions that provide a wide variety of features for React components. They all begin with `use()`.
+- **`useState`** – A react hook for managing state within a React component. It returns an array with a state value and a setter function. It triggers the component to re-render when the state changes.
+- **Lifting state up** — A practice where state is defined in a parent component so that it can be used by its child components.
 - **Controlled Form** — A form whose value changes are controlled by a piece of state.
 
 ## Instapets
 
 In this lesson, we'll be using an app called `instapets` to demonstrate building **stateful components**. A stateful component is one that depends on state and re-renders whenever the state changes.
 
-**State** is the data that is used/rendered by a component at a particular point in time. State is often mutable, meaning it can be changed over time, usually in response to user actions or other events
+**State** is the data that is used by an application at a particular point in time. State is often mutable, meaning it can be changed over time, usually in response to user actions or other events
 
 Right now the app is not stateful. It renders 3 hard-coded pet pictures,  the form doesn't work and neither do the "Like" buttons.
 
-![](./images/instapets.png)
+<img style="max-width: 1200px" src="./images/instapets.png">
 
 Let's build this thing! 
 
@@ -285,19 +285,19 @@ The last step to putting this together is having the form submission actually ad
 
 Here is the component tree of the application:
 
-![](./images/instapets-component-tree.svg)
+<img style="max-width: 1200px" src="./images/instapets-component-tree.svg">
 
 The challenge is that `PicturesList` is where the `pictures` are defined but we want to update the list of pictures from `NewPetForm`.
 
 If we were to turn the `pictures` array into some state like this:
 
 ```jsx
-const [pictures, setPictures] = useState([]);
+const [pictures, setPictures] = useState(initialPictures);
 ```
 
 **<details><summary style="color: purple">Q: Where should I put this? Why?</summary>**
 
-> The state should be defined in the `App` which is the closest shared ancestor of the `NewPetForm` and the `PicturesList`. The `App` can then pass those values down to its children as props.
+> The state should be defined in the `App` which is the closest shared ancestor of the `NewPetForm` and the `PicturesList`. The `App` can then pass those values down to its children as props. This is called **"lifting state up"**. 
 > Check out the `1-instapets-final/` to see how this is done:
 > 
 > * `App` uses `useState` to define the `pictures` and `setPictures` values
