@@ -35,7 +35,7 @@ In this lesson, we'll be using an app called `instapets` to demonstrate building
 
 Right now the app is not stateful. It renders 3 hard-coded pet pictures,  the form doesn't work and neither do the "Like" buttons.
 
-<img style="max-width: 1200px" src="./images/instapets.png">
+<img style="max-width: 1200px" src="./images/instapets-demo.png">
 
 Let's build this thing! 
 
