@@ -1,8 +1,9 @@
 # Event Handlers and State
 
-In this lesson, we will look at how to respond to events in React and use those events to manage the ever-changing state in our application. 
+In this lesson, we will look at how to respond to events in React and use those events to manage the ever-changing state in our application.
 
-**Table of Contents**
+## Table of Contents
+
 - [Terms](#terms)
 - [Instapets](#instapets)
 - [Handling Changing State](#handling-changing-state)
@@ -37,15 +38,15 @@ Right now the app is not stateful. It renders 3 hard-coded pet pictures,  the fo
 
 <img style="max-width: 1200px" src="./images/instapets-demo.png">
 
-Let's build this thing! 
+Let's build this thing!
 
 ## Handling Changing State
 
-Let's tackle the likes buttons first. 
+Let's tackle the likes buttons first.
 
 ### Our Components Already Render Data
 
-Each `InstagramPost` component renders a picture, a caption and a button to increment and display likes. 
+Each `InstagramPost` component renders a picture, a caption and a button to increment and display likes.
 
 > Notice how we added an `onClick` prop with the `handleClick` callback function.
 
@@ -111,6 +112,7 @@ While this *does* increment the `likes` value, it doesn't cause the component to
 So how do we make the component re-render with the updated `likes` value?
 
 We need a **hook**. Hooks in react are functions that perform a variety of jobs. They can be identified by their name which starts with "use":
+
 - `useState()`
 - `useEffect()`
 - `useNavigate()`
@@ -121,7 +123,6 @@ We need a **hook**. Hooks in react are functions that perform a variety of jobs.
 The `useState` hook allows us to create a piece of state that React will watch and when the state changes, it will re-render.
 
 Here's how it works:
-
 
 ### Import useState from react
 
@@ -142,7 +143,7 @@ const InstagramPost = () => {
 };
 ```
 
-- `useState` _must_ be called at the top of a component. [Otherwise weird stuff happens](https://legacy.reactjs.org/docs/hooks-rules.html).
+- `useState` *must* be called at the top of a component. [Otherwise weird stuff happens](https://legacy.reactjs.org/docs/hooks-rules.html).
 - `useState(0)` returns an array with two values:
   1. A piece of state data (`likes`) with a starting value (`0`)
   2. A "setter" function for updating that state data (`likes`) and re-rendering the component
@@ -188,15 +189,15 @@ const InstagramPost = ({ picture }) => {
 
 **Quiz!**
 
-* Why did we pass in `0` when we invoked `useState`? 
-* What does `useState()` return?
-* What does `setLikes()` do? What kinds of inputs does it take?
+- Why did we pass in `0` when we invoked `useState`? 
+- What does `useState()` return?
+- What does `setLikes()` do? What kinds of inputs does it take?
 
 ### `setLikes` does NOT change the value of `likes`
 
 Interestingly `setLikes` does NOT change the value of `likes` within the `handleClick` callback. It tells React to re-render the `InstagramPost` component with a new value of `likes`.
 
-![](./images/setLikes-rerender.svg)
+![demo](./images/setLikes-rerender.svg)
 
 You can see this if you place a `console.log(likes)` statement inside of `handleClick` callback.
 
@@ -226,14 +227,14 @@ const NewPetForm = () => {
 }
 ```
 
-* Instead of `for` we use `htmlFor` when connecting labels and inputs.
-* We use `onSubmit` instead of using `addEventListener`.
+- Instead of `for` we use `htmlFor` when connecting labels and inputs.
+- We use `onSubmit` instead of using `addEventListener`.
 
 Now, how do we handle the submission event?
 
 ### Controlled Forms
 
-A **controlled form** is a form element whose input values are controlled by React state rather than through DOM manipulation. 
+A **controlled form** is a form element whose input values are controlled by React state rather than through DOM manipulation.
 
 ```jsx
 const NewPetForm = () => {
@@ -276,12 +277,12 @@ const NewPetForm = () => {
 }
 ```
 
-* how each input has a `value` and an `onChange` prop associated with a particular piece of state.
-* When it is time to submit the form, we can easily use the `src` and `caption` state values without digging through the form.
+- how each input has a `value` and an `onChange` prop associated with a particular piece of state.
+- When it is time to submit the form, we can easily use the `src` and `caption` state values without digging through the form.
 
 ## Discussion! Lifting State Up
 
-The last step to putting this together is having the form submission actually add a new picture to the list of pictures. 
+The last step to putting this together is having the form submission actually add a new picture to the list of pictures.
 
 Here is the component tree of the application:
 
@@ -300,9 +301,9 @@ const [pictures, setPictures] = useState(initialPictures);
 > The state should be defined in the `App` which is the closest shared ancestor of the `NewPetForm` and the `PicturesList`. The `App` can then pass those values down to its children as props. This is called **"lifting state up"**. 
 > Check out the `1-instapets-final/` to see how this is done:
 > 
-> * `App` uses `useState` to define the `pictures` and `setPictures` values
-> * It passes down `pictures` to `PicturesList`
-> * It makes an `addPicture` helper function and passes it down to `NewPetForm` to invoke upon submission.
-> * Notice how `addPicture` sets the state by copying the existing array and adding a new object.
+> - `App` uses `useState` to define the `pictures` and `setPictures` values
+> - It passes down `pictures` to `PicturesList`
+> - It makes an `addPicture` helper function and passes it down to `NewPetForm` to invoke upon submission.
+> - Notice how `addPicture` sets the state by copying the existing array and adding a new object.
 
 </details><br>
